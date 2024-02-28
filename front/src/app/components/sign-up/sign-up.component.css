@@ -1,0 +1,41 @@
+.auth-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.form-input-box{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.form-input-box input{
+  border: solid 0.6px #BFBFBF;
+  border-radius: 30px;
+  padding: 15px;
+}
+
+.form-input-box p{
+  font-family: "Readex Pro", sans-serif;
+  color: #121E28;
+  font-size: 14px;
+}
+
+.auth-form button{
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+  background: #2C6F5A;
+  color: white;
+  font-family: "Readex Pro", sans-serif;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.auth-form form{
+  width: 350px;
+}
