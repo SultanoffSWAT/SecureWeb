@@ -1,0 +1,30 @@
+.poster{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.poster-image{
+  width: 700px;
+}
+
+.poster .text-box{
+  color: #2C6F5A;
+  font-family: "Readex Pro", sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+.poster .text-box p{
+  margin: 20px;
+}
+
+.poster .text-box .main-text{
+  margin-top: 60px;
+  font-size: 80px;
+}
+
+
+
+
