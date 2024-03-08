@@ -1,3 +1,7 @@
+.courses-list{
+  padding: 20px 50px 20px 50px;
+}
+
 .course-main-title, .course-second-title{
   font-family: "Readex Pro", sans-serif;
   color: #2C6F5A;
