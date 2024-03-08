@@ -10,7 +10,7 @@ import {CoursesComponent} from "./courses/courses.component";
 export const routes: Routes = [
   {path: "sign-in",component: SignInComponent},
   {path: "sign-up",component: SignUpComponent},
-  {path: "home",component: HomeComponent},
+  {path: "",component: HomeComponent},
   {path: "courses",component: CoursesComponent},
   {path: "profile",component: ProfileComponent},
   {path: "course-details",component: CourseLessonsListComponent},
