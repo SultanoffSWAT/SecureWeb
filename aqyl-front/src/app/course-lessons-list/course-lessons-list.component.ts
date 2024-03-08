@@ -15,13 +15,13 @@ export class CourseLessonsListComponent implements OnInit{
 
   ]
 
-  lessonTitle = "Hello"
+  currentLesson = this.lessons[0]
 
   constructor() {
 
   }
-  chooseLesson(){
-
+  chooseLesson(lesson : Lesson){
+    this.currentLesson = lesson
   }
 
   ngOnInit(): void {

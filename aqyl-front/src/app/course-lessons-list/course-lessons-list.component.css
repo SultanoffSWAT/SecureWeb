@@ -67,7 +67,7 @@
   border: none;
   border-radius: 30px;
   padding: 10px 20px 10px 20px;
-  margin: 0;
+  margin: 0 0 10px 0;
   cursor: pointer;
 }
 
@@ -75,10 +75,6 @@
   background: rgba(44, 111, 90, 0.9);
   color: white;
 }
-
-/*.course-info{*/
-/*  width: 20vmax;*/
-/*}*/
 
 .course-info img {
   width: 8vmax;
@@ -106,3 +102,10 @@
   margin: 0;
 }
 
+.current-lesson{
+  background: rgba(44, 111, 90, 0.2);
+}
+
+.current-lesson:hover{
+  background: rgba(44, 111, 90, 0.3);
+}

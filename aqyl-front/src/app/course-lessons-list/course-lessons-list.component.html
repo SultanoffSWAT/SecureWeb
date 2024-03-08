@@ -3,7 +3,7 @@
 
   <div class="lessons-list">
 
-    <div class="lesson-title" *ngFor="let lesson of lessons; let i = index">
+    <div class="lesson-title" [ngClass]="{'current-lesson' : currentLesson == lesson}" *ngFor="let lesson of lessons; let i = index" (click)="chooseLesson(lesson)">
       <p class="lesson-number">{{i+1}}</p>
       <div class="titles">
         <p class="main-title">{{lesson.title}}</p>
@@ -20,9 +20,14 @@
     <p class="course-info-lessons-number">20 lessons</p>
     <button routerLink="/subscription">Go</button>
 
+    <div class="titles">
+      <p class="main-title">{{currentLesson.title}}</p>
+      <p class="second-title">{{currentLesson.secondTitle}}</p>
+    </div>
+
     <div class="video-container">
       <video class="lesson-video" controls>
-        <source src="assets/temp-videos/Python%20in%20100%20Seconds.mp4" type="video/mp4" />
+        <source src="{{currentLesson.videoURL}}" type="video/mp4" />
       </video>
     </div>
 
