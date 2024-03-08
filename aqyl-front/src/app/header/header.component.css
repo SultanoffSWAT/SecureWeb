@@ -1,0 +1,53 @@
+.header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.header div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  width: 90px;
+  height: 90px;
+  margin-right: 40px;
+  cursor: pointer;
+}
+
+button, a{
+  font-family: "Readex Pro", sans-serif;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+button{
+  background: #2C6F5A;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+}
+
+button:hover{
+  background: rgba(44, 111, 90, 0.9);
+  color: white;
+}
+
+
+.menu-items{
+  color: #2C6F5A;
+}
+
+.divider{
+  height: 0.7px;
+  width: 100%;
+  background: #2C6F5A;
+}
+

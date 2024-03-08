@@ -1,0 +1,31 @@
+
+<div class="lessons-page">
+
+  <div class="lessons-list">
+
+    <div class="lesson-title" *ngFor="let lesson of lessons; let i = index">
+      <p class="lesson-number">{{i+1}}</p>
+      <div class="titles">
+        <p class="main-title">{{lesson.title}}</p>
+        <p class="second-title">{{lesson.secondTitle}}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="course-info">
+
+    <img src="assets/course-images/python.png" alt="course-image">
+    <p class="course-main-title">Introduction to Python Programming</p>
+    <p class="course-info-lessons-number">20 lessons</p>
+    <button routerLink="/subscription">Go</button>
+
+    <div class="video-container">
+      <video class="lesson-video" controls>
+        <source src="assets/temp-videos/Python%20in%20100%20Seconds.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+  </div>
+
+</div>

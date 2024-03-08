@@ -1,0 +1,53 @@
+.course-main-title, .course-second-title{
+  font-family: "Readex Pro", sans-serif;
+  color: #2C6F5A;
+  margin: 3px 3px 10px 3px;
+}
+
+.course-main-title{
+  font-size: 24px;
+}
+
+.course-second-title{
+  font-size: 13px;
+}
+
+button{
+  background: #2C6F5A;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px 10px 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+button:hover{
+  background: rgba(44, 111, 90, 0.9);
+  color: white;
+}
+
+.container{
+  background: #F8F8F8;
+  padding: 20px;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vmax;
+  margin-top: 20px;
+}
+
+.container:hover{
+  background: #efefef;
+  cursor: pointer;
+}
+
+.container img{
+  width: 10vmax;
+  height: 10vmax;
+  position: relative;
+  top: -2vmax;
+}
+
+

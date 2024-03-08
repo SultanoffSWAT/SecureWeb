@@ -1,0 +1,108 @@
+.lessons-page{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 50px 20px 50px;
+}
+
+.lesson-title, .lesson-title-selected{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 5px;
+  width: 30vmax;
+}
+
+.lesson-title-selected{
+  background: #efefef;
+}
+
+.lesson-title:hover, .lesson-title-selected:hover{
+  background: #F8F8F8;
+  cursor: pointer;
+}
+
+.main-title, .second-title, .lesson-number{
+  font-family: "Readex Pro", sans-serif;
+  color: #2C6F5A;
+  margin: 3px;
+}
+
+.main-title{
+  font-size: 18px;
+}
+
+.second-title{
+  font-size: 12px;
+}
+
+.lesson-number{
+  margin-right: 10px;
+}
+
+.lessons-page{
+  display: flex;
+  flex-direction: row;
+}
+
+.course-info{
+  font-family: "Readex Pro", sans-serif;
+}
+
+.course-main-title{
+  color: #2C6F5A;
+  font-size: 24px;
+  margin: 3px;
+}
+
+.course-info-lessons-number{
+  font-weight: lighter;
+}
+
+.course-info button{
+  background: #2C6F5A;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px 10px 20px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.course-info button:hover{
+  background: rgba(44, 111, 90, 0.9);
+  color: white;
+}
+
+/*.course-info{*/
+/*  width: 20vmax;*/
+/*}*/
+
+.course-info img {
+  width: 8vmax;
+  height: 8vmax;
+}
+
+.video-container{
+  margin-top: 20px;
+  background: transparent;
+  width: 50vmax;
+  height: 30vmax;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  object-fit: cover;
+}
+
+.lesson-video{
+  width: 50vmax;
+  height: 30vmax;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+}
+

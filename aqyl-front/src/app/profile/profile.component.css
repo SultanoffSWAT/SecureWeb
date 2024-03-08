@@ -1,0 +1,45 @@
+
+.profile{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 50px;
+}
+
+.personal{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.white-button{
+  background: #F3F3F3;
+  color: #2C6F5A;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.white-button:hover{
+  background: #e1e1e1;
+  color: #2C6F5A;
+}
+
+button{
+  font-family: "Readex Pro", sans-serif;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+p{
+  font-family: "Readex Pro", sans-serif;
+  color: #2C6F5A;
+  margin: 3px;
+}
+
+.profile-name{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
