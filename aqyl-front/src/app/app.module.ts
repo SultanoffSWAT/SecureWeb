@@ -10,12 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import {FormsModule} from "@angular/forms";
-import {AuthService} from "./service/AuthService";
-import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors/TokenInterceptor';
-
 
 @NgModule({
   declarations: [
@@ -26,15 +20,13 @@ import { TokenInterceptor } from './interceptors/TokenInterceptor';
     HomeComponent,
     ProfileComponent,
     SignInComponent,
-    SignUpComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    FormsModule
+    AppRoutingModule
   ],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
