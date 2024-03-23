@@ -1,4 +1,6 @@
 from fastapi import FastAPI, Form, Depends, HTTPException, status
+
+import schema
 from database import session
 from models import User
 from passlib.context import CryptContext
@@ -51,6 +53,10 @@ def verify_password(plain_password, hashed_password):
 
 @app.post("/sign-up/")
 async def sign_up(request: SignUpRequest, db: session = Depends(get_db)):
+    user = db.query(User).filter(User.email == request.email).first()
+    if user:
+        raise HTTPException(status_code=409, detail="Email already in use")
+
     hashed_password = get_password_hash(request.password)
 
     user = User(
@@ -68,9 +74,23 @@ async def sign_up(request: SignUpRequest, db: session = Depends(get_db)):
 async def sign_in(request: SignInRequest, db: session = Depends(get_db)):
     user = db.query(User).filter(User.email == request.email).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Please, double check your email")
     if not verify_password(request.password, user.hashed_password):
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Please, double check your password")
 
     access_token = create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/user/{request}")
+async def get_user_by_email(request: str, db: session = Depends(get_db)):
+    db_user = db.query(User).filter(User.email == request).first()
+    print(request)
+    if not db_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+    user = {
+        'name': db_user.name,
+        'email': db_user.email
+    }
+    print(user)
+    return user

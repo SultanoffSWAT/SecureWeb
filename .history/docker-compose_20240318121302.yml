@@ -15,7 +15,7 @@ services:
 
   web:
     build: ./back
-    command: /bin/bash -c "cd back && alembic upgrade head && uvicorn main:app --host 0.0.0.0 --reload"
+    command: /bin/bash -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --reload"
     volumes:
       - .:/code
     ports:
