@@ -10,12 +10,10 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import {UserService} from "../services/user.service";
+import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {AuthService} from "./service/AuthService";
-import { HttpClientModule } from '@angular/common/http';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors/TokenInterceptor';
-
+import {LocalstorageService} from "../services/localstorage.service";
 
 @NgModule({
   declarations: [
@@ -26,15 +24,15 @@ import { TokenInterceptor } from './interceptors/TokenInterceptor';
     HomeComponent,
     ProfileComponent,
     SignInComponent,
-    SignUpComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule
   ],
-  providers: [AuthService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
+  providers: [UserService, LocalstorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

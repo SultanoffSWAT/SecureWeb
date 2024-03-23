@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../service/AuthService';
+import {UserService} from "../../services/user.service";
+import {LocalstorageService} from "../../services/localstorage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -7,17 +9,27 @@ import { AuthService } from '../service/AuthService';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
+  errorMessage = ''
+  constructor(private router: Router, private userService: UserService, private localStorageService : LocalstorageService) {
+  }
 
-  constructor(private authService: AuthService) { }
+  user = {
+    email: '',
+    password: ''
+  }
 
-   signIn(email: string, password: string): void {
-    this.authService.signIn(email, password).subscribe({
-      next: (response) => {
-        console.log('User signed in successfully:', response);
+  signIn(){
+    console.log(this.user)
+    this.userService.signIn(this.user.email, this.user.password).subscribe({
+      next: value => {
+        console.log(value)
+        this.localStorageService.set('user-token', value.access_token)
+        console.log('localStorageService: ', this.localStorageService.get('user-token'))
+        this.router.navigate(['/profile'])
       },
-      error: (error) => {
-        console.error('Error signing in:', error);
+      error: error => {
+        this.errorMessage = error.error.detail
       }
-    });
+    })
   }
 }

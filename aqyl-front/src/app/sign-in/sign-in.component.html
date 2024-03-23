@@ -1,15 +1,23 @@
 <div class="auth-form">
-  <form (ngSubmit)="signIn(emailInput.value, passwordInput.value)">
+
+  <form (ngSubmit)="signIn()" #signInForm = "ngForm">
     <div class="form-input-box">
       <p>Email</p>
-      <input type="email" #emailInput name="email">
+      <input type="email" name="email" [(ngModel)]="user.email" required>
     </div>
 
     <div class="form-input-box">
       <p>Password</p>
-      <input type="password" #passwordInput name="password">
+      <input type="password" name="password" [(ngModel)]="user.password" required>
     </div>
 
-    <button type="submit">Sign in</button>
+    <button type="submit" [disabled]="!signInForm.valid">Sign in</button>
+
   </form>
+
+  <div [ngClass]="['message', 'error-message', errorMessage != '' ? 'error-occurred' : '']">
+    <p>{{errorMessage}}</p>
+  </div>
+
 </div>
+

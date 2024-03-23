@@ -1,27 +1,35 @@
 <div class="auth-form">
-  <form (ngSubmit) = "signUp(nameInput.value, emailInput.value, passwordInput.value)">
+  <form (ngSubmit)="signUp()" #signUpForm="ngForm">
     <div class="form-input-box">
       <p>Full Name</p>
-      <input type="text" #nameInput name="name">
+      <input type="text"  name="name" [(ngModel)]="newUser.name"  required>
     </div>
 
     <div class="form-input-box">
       <p>Email</p>
-      <input type="email" #emailInput name="email">
+      <input type="email" name="email" [(ngModel)]="newUser.email" required>
     </div>
 
     <div class="form-input-box">
       <p>Password</p>
-      <input type="password" #passwordInput name="password">
+      <input type="password" name="password" [(ngModel)]="newUser.password" required>
     </div>
 
     <div class="form-input-box">
       <p>Verify password</p>
-      <input type="password">
+      <input type="password" name="passwordVerify" [(ngModel)]="newUser.passwordVerify" required>
     </div>
 
-    <button type="submit">Sign up</button>
+    <button type="submit" [disabled]="!signUpForm.valid">Sign up</button>
 
   </form>
+
+  <div [ngClass]="['message', 'error-message', errorMessage != '' ? 'error-occurred' : '']">
+    <p>{{errorMessage}}</p>
+  </div>
+
+  <div [ngClass]="['message', 'success-message', successMessage != '' ? 'show-success' : '']">
+    <p>{{successMessage}}</p>
+  </div>
 </div>
 
