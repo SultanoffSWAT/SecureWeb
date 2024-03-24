@@ -85,7 +85,6 @@ async def sign_in(request: SignInRequest, db: session = Depends(get_db)):
 @app.get("/user/{request}")
 async def get_user_by_email(request: str, db: session = Depends(get_db)):
     db_user = db.query(User).filter(User.email == request).first()
-    print(request)
     if not db_user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     user = {
