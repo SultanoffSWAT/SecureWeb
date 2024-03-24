@@ -1,7 +1,6 @@
 <div class="profile">
 
   <div class="courses">
-    <p>My courses</p>
     <app-courses></app-courses>
   </div>
 
@@ -11,7 +10,10 @@
     <p>{{user.email}}</p>
 
     <button class="white-button">Reset password</button>
-    <button class="white-button">Logout</button>
+    <button class="white-button" (click)="toggleLogoutDialog()">Logout</button>
   </div>
+</div>
 
+<div [ngClass]="isLogoutDialogOpen ? 'active' : 'inactive'">
+  <app-dialog message="Do you want to log out???" actionTitle="Logout" (close)="toggleLogoutDialog()" (action)="logout()"></app-dialog>
 </div>

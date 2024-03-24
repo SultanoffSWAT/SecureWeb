@@ -8,15 +8,6 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   title = 'aqyl-front';
-
-  constructor(private router: Router, private localStorageService: LocalstorageService) {
-  }
-
-  ngOnInit(): void {
-    if(this.localStorageService.get('user-token')){
-      this.router.navigate(['/profile'])
-    }
-  }
 }

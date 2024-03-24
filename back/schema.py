@@ -13,3 +13,4 @@ class SignUpRequest(BaseModel):
 class CurrentUser(BaseModel):
     name: str
     email: str
+

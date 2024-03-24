@@ -6,6 +6,7 @@ import {HomeComponent} from "./home/home.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {CoursesComponent} from "./courses/courses.component";
+import {DialogComponent} from "./dialog/dialog.component";
 
 export const routes: Routes = [
   {path: "sign-in",component: SignInComponent},
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {path: "courses",component: CoursesComponent},
   {path: "profile",component: ProfileComponent},
   {path: "course-details",component: CourseLessonsListComponent},
+
 ];
 
 @NgModule({

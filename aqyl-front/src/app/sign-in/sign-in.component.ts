@@ -25,7 +25,9 @@ export class SignInComponent {
         console.log(value)
         this.localStorageService.set('user-token', value.access_token)
         console.log('localStorageService: ', this.localStorageService.get('user-token'))
-        this.router.navigate(['/profile'])
+        this.router.navigate(['/']).then(()=>{
+          window.location.reload()
+        })
       },
       error: error => {
         this.errorMessage = error.error.detail

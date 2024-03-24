@@ -14,6 +14,7 @@ import {UserService} from "../services/user.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {LocalstorageService} from "../services/localstorage.service";
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {LocalstorageService} from "../services/localstorage.service";
     HomeComponent,
     ProfileComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,

@@ -94,3 +94,4 @@ async def get_user_by_email(request: str, db: session = Depends(get_db)):
     }
     print(user)
     return user
+

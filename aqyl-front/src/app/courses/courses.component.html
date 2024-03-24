@@ -1,6 +1,8 @@
 
 <div class="courses-list">
 
+  <p class="courses-list-title">{{courseListTitle}}</p>
+
   <div class="container" *ngFor="let course of courses" routerLink="/course-details">
     <div class="course-title">
       <p class="course-main-title">{{course.title}}</p>

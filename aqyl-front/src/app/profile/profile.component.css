@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 50px;
 }
 
 .personal{
   display: flex;
   flex-direction: column;
   align-items: start;
+  padding: 50px;
 }
 
 .white-button{
@@ -28,13 +28,11 @@
 }
 
 button{
-  font-family: "Readex Pro", sans-serif;
   margin-right: 10px;
   cursor: pointer;
 }
 
 p{
-  font-family: "Readex Pro", sans-serif;
   color: #2C6F5A;
   margin: 3px;
 }
@@ -42,4 +40,12 @@ p{
 .profile-name{
   font-size: 20px;
   margin-bottom: 20px;
+}
+
+.active{
+  display: flex;
+}
+
+.inactive{
+  display: none;
 }

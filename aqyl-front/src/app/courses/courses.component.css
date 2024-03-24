@@ -1,9 +1,13 @@
 .courses-list{
-  padding: 20px 50px 20px 50px;
+  padding: 20px;
 }
 
+.courses-list-title{
+  color: #2C6F5A;
+}
+
+
 .course-main-title, .course-second-title{
-  font-family: "Readex Pro", sans-serif;
   color: #2C6F5A;
   margin: 3px 3px 10px 3px;
 }
@@ -53,5 +57,3 @@ button:hover{
   position: relative;
   top: -2vmax;
 }
-
-
