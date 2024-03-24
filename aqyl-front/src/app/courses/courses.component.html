@@ -3,11 +3,11 @@
 
   <p class="courses-list-title">{{courseListTitle}}</p>
 
-  <div class="container" *ngFor="let course of courses" [routerLink]="[course.id]">
+  <div class="container" *ngFor="let course of courses" [routerLink]="['/courses', course.id]">
     <div class="course-title">
       <p class="course-main-title">{{course.title}}</p>
       <p class="course-second-title">{{course.secondary_title}}</p>
-      <button [routerLink]="[course.id]">Go</button>
+      <button [routerLink]="['/courses', course.id]">Go</button>
     </div>
     <img src="{{course.image}}" alt="course-image">
   </div>

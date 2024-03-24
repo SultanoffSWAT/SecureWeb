@@ -15,12 +15,11 @@ export class CoursesComponent implements OnInit{
   //   new Course("Introduction to Python Programming", "Start your coding journey with Python!", "assets/course-images/python.png", 12000),
   //   new Course("Introduction to Java Programming", "Start your coding journey with Java!", "assets/course-images/java.png", 20000)
   // ]
-
   courses : Course[] = []
 
   constructor(private router: Router, private courseService: CourseService) {}
 
-  setCourseListTitle(){
+  setupCurrentRoute(){
     this.courseListTitle = this.router.url == '/profile' ? 'My courses' : 'All courses'
   }
 
@@ -31,8 +30,7 @@ export class CoursesComponent implements OnInit{
     })
   }
   ngOnInit(): void {
-    this.setCourseListTitle()
+    this.setupCurrentRoute()
     this.getCourseList()
   }
-
 }
