@@ -7,13 +7,13 @@
       <p class="lesson-number">{{i+1}}</p>
       <div class="titles">
         <p class="main-title">{{lesson.title}}</p>
-        <p class="second-title">{{lesson.secondTitle}}</p>
+        <p class="second-title">{{lesson.secondary_title}}</p>
       </div>
     </div>
 
   </div>
 
-  <div class="course-info">
+  <div class="course-info" *ngIf="currentLesson">
 
     <img src="assets/course-images/python.png" alt="course-image">
     <p class="course-main-title">Introduction to Python Programming</p>
@@ -22,12 +22,12 @@
 
     <div class="titles">
       <p class="main-title">{{currentLesson.title}}</p>
-      <p class="second-title">{{currentLesson.secondTitle}}</p>
+      <p class="second-title">{{currentLesson.secondary_title}}</p>
     </div>
 
     <div class="video-container">
       <video class="lesson-video" controls>
-        <source src="{{currentLesson.videoURL}}" type="video/mp4" />
+        <source src="{{currentLesson.video}}" type="video/mp4" />
       </video>
     </div>
 

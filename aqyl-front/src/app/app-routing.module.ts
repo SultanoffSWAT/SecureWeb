@@ -14,7 +14,7 @@ export const routes: Routes = [
   {path: "",component: HomeComponent},
   {path: "courses",component: CoursesComponent},
   {path: "profile",component: ProfileComponent},
-  {path: "course-details",component: CourseLessonsListComponent},
+  {path: 'courses/:id', component: CourseLessonsListComponent },
 
 ];
 

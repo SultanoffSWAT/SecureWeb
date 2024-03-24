@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Form, Depends, HTTPException, status
 
+import models
 import schema
 from database import session
 from models import User
@@ -8,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from schema import SignInRequest, SignUpRequest
 from jose import jwt
 from datetime import datetime, timedelta
+from sqlalchemy import select
 
 SECRET_KEY = "85034932-05c7-41cc-be54-aca55e756d72"
 ALGORITHM = "HS256"
@@ -94,3 +96,40 @@ async def get_user_by_email(request: str, db: session = Depends(get_db)):
     print(user)
     return user
 
+
+@app.post("/courses")
+def add_course(request: schema.CreateCourse, db: session = Depends(get_db)):
+    db.add(models.Course(**request.model_dump()))
+    db.commit()
+    db.close()
+    return request
+
+
+@app.get("/courses")
+def get_courses(db: session = Depends(get_db)):
+    db_courses = db.execute(select(models.Course)).scalars().all()
+    courses = [schema.Course.model_validate(course) for course in db_courses]
+    return courses
+
+
+@app.get("/courses/{request}")
+def get_course_by_id(request: int, db: session = Depends(get_db)):
+    db_course = db.get(models.Course, request)
+    course = schema.Course.model_validate(db_course)
+    return course
+
+
+@app.get("/courses/{request}/lessons")
+def get_course_lessons(request: int, db: session = Depends(get_db)):
+    db_course = db.get(models.Course, request)
+    db_lessons = db_course.lessons
+    lessons = [schema.Lesson.model_validate(lesson) for lesson in db_lessons]
+    return lessons
+
+
+@app.post("/lessons")
+def add_lesson_to_course(request: schema.CreateLesson, db: session = Depends(get_db)):
+    db.add(models.Lesson(**request.model_dump()))
+    db.commit()
+    db.close()
+    return request

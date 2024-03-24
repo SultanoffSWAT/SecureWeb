@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class SignInRequest(BaseModel):
@@ -21,7 +21,10 @@ class BaseCourse(BaseModel):
     title: str
     secondary_title: str
     image: str
-    price: str
+    price: float
+
+    class Config:
+        from_attributes = True
 
 
 class Course(BaseCourse):
@@ -36,6 +39,10 @@ class BaseLesson(BaseModel):
     title: str
     secondary_title: str
     video: str
+    course_id: int
+
+    class Config:
+        from_attributes = True
 
 
 class Lesson(BaseLesson):

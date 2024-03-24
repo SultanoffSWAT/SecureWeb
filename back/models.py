@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import Mapped
 from typing import Annotated
 import sqlalchemy
@@ -26,7 +26,7 @@ class Course(Base):
     image: Mapped[str]
     price: Mapped[float]
 
-    lessons: Mapped['list[Lesson]'] = relationship(back_populates='course')
+    lessons: Mapped[list['Lesson']] = relationship(back_populates='course')
 
 
 class Lesson(Base):
@@ -36,5 +36,6 @@ class Lesson(Base):
     title: Mapped[str]
     secondary_title: Mapped[str]
     video: Mapped[str]
+    course_id: Mapped[int] = mapped_column(ForeignKey('courses.id'))
 
     course: Mapped['Course'] = relationship(back_populates='lessons')

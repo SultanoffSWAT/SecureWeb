@@ -1,11 +1,23 @@
 export class Lesson{
-  title: String;
-  secondTitle: String;
-  videoURL: String;
+  id: number
+  title: String
+  secondary_title: String
+  video: String
+  course_id: number
 
-  constructor(title: String, secondTitle: String, videoURL: String) {
-    this.title = title;
-    this.videoURL = videoURL
-    this.secondTitle = secondTitle
+  constructor(id?: number, title?: String, secondary_title?: String, video?: String, course_id?: number) {
+    this.id = 0
+    this.title = ''
+    this.secondary_title = ''
+    this.video = ''
+    this.course_id = 0
+
+    if(id && title && secondary_title && video && course_id){
+      this.id = id
+      this.title = title;
+      this.secondary_title = secondary_title
+      this.video = video
+      this.course_id = course_id
+    }
   }
 }
