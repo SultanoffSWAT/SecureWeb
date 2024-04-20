@@ -16,6 +16,7 @@ import {LocalstorageService} from "../services/localstorage.service";
 import { DialogComponent } from './dialog/dialog.component';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { environment } from '../environments/environment';
     ProfileComponent,
     SignInComponent,
     SignUpComponent,
-    DialogComponent
+    DialogComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,

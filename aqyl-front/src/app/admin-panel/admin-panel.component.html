@@ -1,0 +1,30 @@
+<div class="admin">
+
+  <div class="users">
+
+    <p>Users</p>
+    <div class="container">
+      <div class="text">
+        <p>Aknur</p>
+        <p>aknur@gmail.com</p>
+      </div>
+      <button (click)="toggleDeleteUserDialog('Aknur')">Delete user</button>
+    </div>
+  </div>
+
+  <div class="personal">
+    <p class="profile-name">Hi, Admin!</p>
+    <p>admin@gmail.com</p>
+
+    <button class="white-button">Reset password</button>
+    <button class="white-button" (click)="toggleLogoutDialog()">Logout</button>
+  </div>
+</div>
+
+<div [ngClass]="isLogoutDialogOpen ? 'active' : 'inactive'">
+  <app-dialog message="Do you want to log out???" actionTitle="Logout" (close)="toggleLogoutDialog()" (action)="logout()"></app-dialog>
+</div>
+
+<div [ngClass]="isDeleteUserDialogOpen ? 'active' : 'inactive'">
+  <app-dialog [message]="'Do you want to delete user: ' + deletingUser + '?'" actionTitle="Delete" (close)="toggleDeleteUserDialog()" (action)="deleteUser()"></app-dialog>
+</div>
