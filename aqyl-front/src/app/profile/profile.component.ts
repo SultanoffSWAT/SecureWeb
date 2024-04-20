@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit{
 
 
   logout(){
-    this.localStorageService.remove('user-token')
+    sessionStorage.removeItem('user-token')
     this.router.navigate(['/']).then(()=>{
       window.location.reload()
     })

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CourseLessonsListComponent } from './course-lessons-list/course-lessons-list.component';
@@ -15,6 +14,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {LocalstorageService} from "../services/localstorage.service";
 import { DialogComponent } from './dialog/dialog.component';
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,18 @@ import { DialogComponent } from './dialog/dialog.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
-  providers: [UserService, LocalstorageService],
+  providers: [UserService, LocalstorageService,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    } ,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

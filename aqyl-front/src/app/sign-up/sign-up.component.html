@@ -2,25 +2,28 @@
   <form (ngSubmit)="signUp()" #signUpForm="ngForm">
     <div class="form-input-box">
       <p>Full Name</p>
-      <input type="text"  name="name" [(ngModel)]="newUser.name"  required>
+      <input type="text" name="name" (ngModelChange)="verifyForm('name',$event)" [(ngModel)]="newUser.name"  required>
     </div>
 
     <div class="form-input-box">
       <p>Email</p>
-      <input type="email" name="email" [(ngModel)]="newUser.email" required>
+      <input type="email" name="email" (ngModelChange)="verifyForm('email', $event)" [(ngModel)]="newUser.email" required>
     </div>
 
     <div class="form-input-box">
       <p>Password</p>
-      <input type="password" name="password" [(ngModel)]="newUser.password" required>
+      <input type="password" name="password" (ngModelChange)="verifyForm('password',$event)" [(ngModel)]="newUser.password" required>
     </div>
 
     <div class="form-input-box">
       <p>Verify password</p>
-      <input type="password" name="passwordVerify" [(ngModel)]="newUser.passwordVerify" required>
+      <input type="password" name="passwordVerify" (ngModelChange)="verifyForm('passwordVerify',$event)" [(ngModel)]="newUser.passwordVerify" required>
+    </div>
+    <div class="recaptcha">
+      <re-captcha (resolved)="resolved($event)"></re-captcha>
     </div>
 
-    <button type="submit" [disabled]="!signUpForm.valid">Sign up</button>
+    <button type="submit" [ngClass]="[formIsCompleted ? '' : 'disabled']">Sign up</button>
 
   </form>
 

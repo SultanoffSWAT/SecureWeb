@@ -65,3 +65,14 @@
   display: flex;
 }
 
+.disabled{
+  background: #969696 !important;
+  pointer-events: none;
+}
+
+.recaptcha{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}

@@ -10,6 +10,7 @@ class SignUpRequest(BaseModel):
     name: str
     email: str
     password: str
+    recaptcha: str
 
 
 class CurrentUser(BaseModel):
@@ -51,3 +52,7 @@ class Lesson(BaseLesson):
 
 class CreateLesson(BaseLesson):
     pass
+
+
+class RecaptchaData(BaseModel):
+    recaptcha_response: str

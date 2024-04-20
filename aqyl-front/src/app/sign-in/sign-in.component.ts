@@ -23,8 +23,8 @@ export class SignInComponent {
     this.userService.signIn(this.user.email, this.user.password).subscribe({
       next: value => {
         console.log(value)
-        this.localStorageService.set('user-token', value.access_token)
-        console.log('localStorageService: ', this.localStorageService.get('user-token'))
+        sessionStorage.setItem('user-token', value.access_token)
+        console.log('localStorageService: ', sessionStorage.getItem('user-token'))
         this.router.navigate(['/']).then(()=>{
           window.location.reload()
         })

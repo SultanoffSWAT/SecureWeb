@@ -56,3 +56,10 @@
 .cancel-button:hover{
   background: #e7e7e7;
 }
+
+.dialog-text{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

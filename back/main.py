@@ -10,6 +10,9 @@ from schema import SignInRequest, SignUpRequest
 from jose import jwt
 from datetime import datetime, timedelta
 from sqlalchemy import select
+import httpx
+
+from secret import RECAPTCHA_SECRET_KEY
 
 SECRET_KEY = "85034932-05c7-41cc-be54-aca55e756d72"
 ALGORITHM = "HS256"
@@ -53,8 +56,30 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
+async def verify_recaptcha(recaptcha_token: str):
+    print(recaptcha_token)
+    payload = {
+        'secret': RECAPTCHA_SECRET_KEY,
+        'response': recaptcha_token
+    }
+    url = "https://www.google.com/recaptcha/api/siteverify"
+
+    async with httpx.AsyncClient() as client:
+        response = await client.post(url, data=payload)
+
+    recaptcha_verification = response.json()
+
+    if recaptcha_verification.get("success"):
+        return True
+    else:
+        raise HTTPException(status_code=400, detail="Invalid reCAPTCHA.")
+
+
 @app.post("/sign-up/")
 async def sign_up(request: SignUpRequest, db: session = Depends(get_db)):
+    if not await verify_recaptcha(request.recaptcha):
+        raise HTTPException(status_code=409, detail="RECAPTCHA not verified")
+
     user = db.query(User).filter(User.email == request.email).first()
     if user:
         raise HTTPException(status_code=409, detail="Email already in use")
@@ -133,3 +158,4 @@ def add_lesson_to_course(request: schema.CreateLesson, db: session = Depends(get
     db.commit()
     db.close()
     return request
+

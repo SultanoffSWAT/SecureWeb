@@ -8,6 +8,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class DialogComponent {
 
   @Input() message!: string;
+  @Input() secondaryMessage!: string;
   @Input() actionTitle!: string;
 
   @Output() close = new EventEmitter<void>();

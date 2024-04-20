@@ -14,7 +14,8 @@ export class HeaderComponent implements OnInit{
   constructor(private router: Router, private localStorageService: LocalstorageService) {}
 
   ngOnInit(): void {
-    this.isTokenActive = this.localStorageService.get('user-token') != null
+    this.isTokenActive = sessionStorage.getItem('user-token') != null
+    // sessionStore
     console.log(this.isTokenActive)
   }
 }
