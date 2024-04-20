@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {jwtDecode} from "jwt-decode";
-import {LocalstorageService} from "../../services/localstorage.service";
 import {UserProfile} from "../../models/user";
 import {Router} from "@angular/router";
 
@@ -15,10 +14,10 @@ export class ProfileComponent implements OnInit{
   user : UserProfile = new UserProfile()
   isLogoutDialogOpen : boolean = false
 
-  constructor(private router: Router, private userService: UserService, private localStorageService: LocalstorageService) {
+  constructor(private router: Router, private userService: UserService) {
   }
   ngOnInit(): void {
-    const token = this.localStorageService.get('user-token')!
+    const token = localStorage.getItem('user-token')!
     const decodedToken = jwtDecode(token)
     this.userService.getUserProfile(decodedToken.sub).subscribe({
       next: value => {
@@ -34,7 +33,7 @@ export class ProfileComponent implements OnInit{
 
 
   logout(){
-    sessionStorage.removeItem('user-token')
+    localStorage.removeItem('user-token')
     this.router.navigate(['/']).then(()=>{
       window.location.reload()
     })

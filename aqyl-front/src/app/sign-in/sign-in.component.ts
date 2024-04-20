@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {UserService} from "../../services/user.service";
-import {LocalstorageService} from "../../services/localstorage.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -10,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class SignInComponent {
   errorMessage = ''
-  constructor(private router: Router, private userService: UserService, private localStorageService : LocalstorageService) {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   user = {
@@ -23,8 +22,8 @@ export class SignInComponent {
     this.userService.signIn(this.user.email, this.user.password).subscribe({
       next: value => {
         console.log(value)
-        sessionStorage.setItem('user-token', value.access_token)
-        console.log('localStorageService: ', sessionStorage.getItem('user-token'))
+        localStorage.setItem('user-token', value.access_token)
+        console.log('localStorageService: ', localStorage.getItem('user-token'))
         this.router.navigate(['/']).then(()=>{
           window.location.reload()
         })
