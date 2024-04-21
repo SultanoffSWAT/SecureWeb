@@ -2,6 +2,8 @@ from fastapi import FastAPI, Form, Depends, HTTPException, status
 
 import models
 import schema
+from roles import UserRole
+from secret import RECAPTCHA_SECRET_KEY
 from database import session
 from models import User
 from passlib.context import CryptContext
@@ -11,14 +13,15 @@ from jose import jwt
 from datetime import datetime, timedelta
 from sqlalchemy import select
 import httpx
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import Security, HTTPException
 
-from secret import RECAPTCHA_SECRET_KEY
+app = FastAPI()
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 SECRET_KEY = "85034932-05c7-41cc-be54-aca55e756d72"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,9 +40,12 @@ def get_db():
         db.close()
 
 
-def create_access_token(data: dict):
+def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -48,12 +54,84 @@ def create_access_token(data: dict):
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
+@app.post("/token", response_model=schema.Token)
+async def login_for_access_token(
+        form_data: OAuth2PasswordRequestForm = Depends(),
+        db: session = Depends(get_db)
+):
+    user = authenticate_user(db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.email}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
 def get_password_hash(password):
     return pwd_context.hash(password)
 
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
+
+
+def authenticate_user(db: session, email: str, password: str):
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        return False
+    if not verify_password(password, user.hashed_password):
+        return False
+    return user
+
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+        token_data = schema.TokenData(email=email)
+    except jwt.JWTError:
+        raise credentials_exception
+    user = db.query(User).filter(User.email == token_data.email).first()
+    if user is None:
+        raise credentials_exception
+    return user
+
+
+def get_current_active_admin(current_user: models.User = Depends(get_current_user)):
+    if current_user.role != UserRole.ADMIN.value:
+        raise HTTPException(status_code=403, detail="The user doesn't have enough privileges")
+    return current_user
+
+
+
+
+@app.get("/users/")
+def read_users(db: session = Depends(get_db), current_user: User = Depends(get_current_active_admin)):
+    users = db.query(User).all()
+    return users
+
+
+@app.post("/users/{user_id}/delete")
+def delete_user(user_id: int, db: session = Depends(get_db), current_user: User = Depends(get_current_active_admin)):
+    user = db.query(User).filter(User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user)
+    db.commit()
+    return {"message": "User deleted"}
 
 
 async def verify_recaptcha(recaptcha_token: str):
@@ -77,8 +155,8 @@ async def verify_recaptcha(recaptcha_token: str):
 
 @app.post("/sign-up/")
 async def sign_up(request: SignUpRequest, db: session = Depends(get_db)):
-    if not await verify_recaptcha(request.recaptcha):
-        raise HTTPException(status_code=409, detail="RECAPTCHA not verified")
+    # if not await verify_recaptcha(request.recaptcha):
+    #     raise HTTPException(status_code=409, detail="RECAPTCHA not verified")
 
     user = db.query(User).filter(User.email == request.email).first()
     if user:
@@ -90,6 +168,7 @@ async def sign_up(request: SignUpRequest, db: session = Depends(get_db)):
         name=request.name,
         email=request.email,
         hashed_password=hashed_password,
+        role=UserRole.USER.value
     )
     db.add(user)
     db.commit()
@@ -158,4 +237,3 @@ def add_lesson_to_course(request: schema.CreateLesson, db: session = Depends(get
     db.commit()
     db.close()
     return request
-
