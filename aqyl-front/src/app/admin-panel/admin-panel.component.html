@@ -1,16 +1,12 @@
 <div class="admin">
-
-  <div class="users">
-
-    <p>Users</p>
-    <div class="container">
-      <div class="text">
-        <p>Aknur</p>
-        <p>aknur@gmail.com</p>
-      </div>
-      <button (click)="toggleDeleteUserDialog('Aknur')">Delete user</button>
+  <div class="list">
+    <div class="links">
+      <a routerLink="/admin/users">Users</a>
+      <a routerLink="/admin/courses">Courses</a>
     </div>
+    <router-outlet></router-outlet>
   </div>
+
 
   <div class="personal">
     <p class="profile-name">Hi, Admin!</p>
@@ -23,8 +19,4 @@
 
 <div [ngClass]="isLogoutDialogOpen ? 'active' : 'inactive'">
   <app-dialog message="Do you want to log out???" actionTitle="Logout" (close)="toggleLogoutDialog()" (action)="logout()"></app-dialog>
-</div>
-
-<div [ngClass]="isDeleteUserDialogOpen ? 'active' : 'inactive'">
-  <app-dialog [message]="'Do you want to delete user: ' + deletingUser + '?'" actionTitle="Delete" (close)="toggleDeleteUserDialog()" (action)="deleteUser()"></app-dialog>
 </div>

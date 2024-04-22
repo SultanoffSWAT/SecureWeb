@@ -49,4 +49,16 @@ export class UserService {
     return this.http.get<UserProfile>(`${this.baseUrl}user/${email}`, httpOptions)
       .pipe()
   }
+
+  getAllUsers(): Observable<UserProfile[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('access-token')
+      })
+    };
+
+    return this.http.get<UserProfile[]>(`${this.baseUrl}users`, httpOptions)
+      .pipe()
+  }
 }

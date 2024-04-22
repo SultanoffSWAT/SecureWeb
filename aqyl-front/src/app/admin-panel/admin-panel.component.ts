@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
+import {Course} from "../../models/course";
+import {UserProfile} from "../../models/user";
 
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
-export class AdminPanelComponent {
+export class AdminPanelComponent implements OnInit{
 
   isLogoutDialogOpen : boolean = false
-  isDeleteUserDialogOpen : boolean = false
-  deletingUser : string = ''
-  constructor(private router: Router, private userService: UserService) {
-  }
+  constructor(private router: Router) {}
 
   logout(){
     localStorage.removeItem('user-token')
@@ -22,18 +21,9 @@ export class AdminPanelComponent {
     })
   }
 
-  deleteUser(){
-  // delete deletingUser
-  }
-
   toggleLogoutDialog(){
     this.isLogoutDialogOpen = !this.isLogoutDialogOpen
   }
-
-  toggleDeleteUserDialog(user? : string){
-    if(user){
-      this.deletingUser = user
-    }
-    this.isDeleteUserDialogOpen = !this.isDeleteUserDialogOpen
+  ngOnInit(): void {
   }
 }

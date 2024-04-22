@@ -11,10 +11,10 @@ export class HeaderComponent implements OnInit{
 
   isTokenActive : boolean = false
 
-  constructor(private router: Router, private localStorageService: LocalstorageService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.isTokenActive = sessionStorage.getItem('user-token') != null
+    this.isTokenActive = localStorage.getItem('user-token') != null
     // sessionStore
     console.log(this.isTokenActive)
   }

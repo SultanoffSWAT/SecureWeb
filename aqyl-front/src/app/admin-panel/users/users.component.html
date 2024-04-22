@@ -1,0 +1,17 @@
+<div class="users">
+
+  <div class="users-list" *ngFor="let user of users">
+    <div class="container">
+      <div class="text">
+        <p>{{user.name}}</p>
+        <p>{{user.email}}</p>
+      </div>
+      <button (click)="toggleDeleteUserDialog(user)">Delete user</button>
+    </div>
+  </div>
+</div>
+
+
+<div [ngClass]="isDeleteUserDialogOpen ? 'active' : 'inactive'">
+  <app-dialog [message]="'Do you want to delete user: ' + deletingUser + '?'" actionTitle="Delete" (close)="toggleDeleteUserDialog()" (action)="deleteUser()"></app-dialog>
+</div>

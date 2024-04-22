@@ -122,6 +122,13 @@ async def get_user_by_email(request: str, db: session = Depends(get_db)):
     return user
 
 
+@app.get("/users")
+async def get_users(db: session = Depends(get_db)):
+    db_users = db.execute(select(models.User)).scalars().all()
+    users = [schema.CurrentUser(name=user.name, email=user.email) for user in db_users]
+    return users
+
+
 @app.post("/courses")
 def add_course(request: schema.CreateCourse, db: session = Depends(get_db)):
     db.add(models.Course(**request.model_dump()))

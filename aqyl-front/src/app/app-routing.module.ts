@@ -6,8 +6,9 @@ import {HomeComponent} from "./home/home.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {CoursesComponent} from "./courses/courses.component";
-import {DialogComponent} from "./dialog/dialog.component";
 import {AdminPanelComponent} from "./admin-panel/admin-panel.component";
+import {UsersComponent} from "./admin-panel/users/users.component";
+import {CoursesComponent as AdminCoursesComponent} from "./admin-panel/courses/courses.component";
 
 export const routes: Routes = [
   {path: "sign-in",component: SignInComponent},
@@ -16,7 +17,11 @@ export const routes: Routes = [
   {path: "courses",component: CoursesComponent},
   {path: "profile",component: ProfileComponent},
   {path: 'courses/:id', component: CourseLessonsListComponent },
-  {path: 'admin', component: AdminPanelComponent },
+  {path: 'admin', component: AdminPanelComponent, children: [
+      {path: '', component: UsersComponent },
+      {path: 'users', component: UsersComponent },
+      {path: 'courses', component: AdminCoursesComponent },
+    ]},
 ];
 
 @NgModule({

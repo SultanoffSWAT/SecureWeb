@@ -1,0 +1,53 @@
+.users {
+  margin: 30px ;
+  width: 60%;
+  font-size: 18px;
+  color: #2C6F5A;
+}
+
+.users .container{
+  padding: 20px;
+  margin-top: 20px;
+  background: #F8F8F8;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.users .container .text{
+  color: #2C6F5A;
+  font-size: 18px;
+}
+
+.users .container button{
+  margin-right: 10px;
+  padding: 10px 20px 10px 20px;
+  background: #B88282;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.users .container button:hover{
+  background: #be8989;
+}
+
+.active{
+  display: flex;
+}
+
+.inactive{
+  display: none;
+}
+.users-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.links{
+  display: flex;
+}

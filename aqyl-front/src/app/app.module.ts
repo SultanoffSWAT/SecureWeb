@@ -17,6 +17,7 @@ import { DialogComponent } from './dialog/dialog.component';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 import { environment } from '../environments/environment';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { UsersComponent } from './admin-panel/users/users.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     SignInComponent,
     SignUpComponent,
     DialogComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
