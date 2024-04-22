@@ -13,6 +13,15 @@ class SignUpRequest(BaseModel):
     recaptcha: str
 
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    email: str
+
+
 class CurrentUser(BaseModel):
     name: str
     email: str

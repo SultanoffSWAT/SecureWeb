@@ -3,6 +3,8 @@ from sqlalchemy.orm import Mapped
 from typing import Annotated
 import sqlalchemy
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from roles import UserRole
+
 
 from database import Base
 
@@ -10,11 +12,11 @@ _id = Annotated[int, mapped_column(sqlalchemy.Integer, primary_key=True)]
 
 class User(Base):
     __tablename__ = 'users'
-
     id: Mapped[_id]
     name: Mapped[str]
     email: Mapped[str] = mapped_column(String, unique=True)
     hashed_password: Mapped[str]
+    role: Mapped[str] = mapped_column(String, default=UserRole.USER.value)
 
 
 class Course(Base):
@@ -39,3 +41,4 @@ class Lesson(Base):
     course_id: Mapped[int] = mapped_column(ForeignKey('courses.id'))
 
     course: Mapped['Course'] = relationship(back_populates='lessons')
+
