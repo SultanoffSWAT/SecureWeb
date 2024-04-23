@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {catchError, Observable} from "rxjs";
-import {User, UserProfile} from "../models/user";
+import {Observable} from "rxjs";
+import {AdminPanelUser, User, UserProfile} from "../models/user";
 import {UserToken} from "../models/token";
 
 @Injectable({
@@ -35,30 +35,43 @@ export class UserService {
   }
 
   getUserProfile(email: string | undefined): Observable<UserProfile> {
-    if (email == undefined) {
-      console.log('undefined')
-    }
-    console.log(email)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('access-token')
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
       })
     };
-
     return this.http.get<UserProfile>(`${this.baseUrl}user/${email}`, httpOptions)
       .pipe()
   }
 
-  getAllUsers(): Observable<UserProfile[]> {
+  getAllUsers(): Observable<AdminPanelUser[]> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('access-token')
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
       })
     };
+    return this.http.get<AdminPanelUser[]>(`${this.baseUrl}users`, httpOptions)
+      .pipe()
+  }
 
-    return this.http.get<UserProfile[]>(`${this.baseUrl}users`, httpOptions)
+  removeUser(userId: number): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+      })
+    };
+    return this.http.delete<boolean>(`${this.baseUrl}users/${userId}`, httpOptions)
+      .pipe()
+  }
+
+  adminVerify(): Observable<boolean> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+      })
+    };
+    return this.http.get<boolean>(`${this.baseUrl}admin/verify`, httpOptions)
       .pipe()
   }
 }

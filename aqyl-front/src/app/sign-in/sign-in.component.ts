@@ -14,16 +14,13 @@ export class SignInComponent {
 
   user = {
     email: '',
-    password: ''
+    password: '',
   }
 
   signIn(){
-    console.log(this.user)
     this.userService.signIn(this.user.email, this.user.password).subscribe({
       next: value => {
-        console.log(value)
-        localStorage.setItem('user-token', value.access_token)
-        console.log('localStorageService: ', localStorage.getItem('user-token'))
+        localStorage.setItem('accessToken', value.access_token)
         this.router.navigate(['/']).then(()=>{
           window.location.reload()
         })

@@ -61,3 +61,12 @@ p{
   color: #2C6F5A;
   text-decoration: none;
 }
+
+.page-not-found{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2C6F5A;
+}

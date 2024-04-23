@@ -17,23 +17,24 @@ export class ProfileComponent implements OnInit{
   constructor(private router: Router, private userService: UserService) {
   }
   ngOnInit(): void {
-    const token = localStorage.getItem('user-token')!
+    const token = localStorage.getItem('accessToken')!
     const decodedToken = jwtDecode(token)
     this.userService.getUserProfile(decodedToken.sub).subscribe({
       next: value => {
         this.user.name = value.name
         this.user.email = value.email
-        console.log(value)
       },
       error: err => {
-        console.log('error', err)
+        this.router.navigate(['/sign-in']).then(()=>{
+          window.location.reload()
+        })
       }
     })
   }
 
 
   logout(){
-    localStorage.removeItem('user-token')
+    localStorage.removeItem('accessToken')
     this.router.navigate(['/']).then(()=>{
       window.location.reload()
     })
@@ -41,6 +42,5 @@ export class ProfileComponent implements OnInit{
 
   toggleLogoutDialog(){
     this.isLogoutDialogOpen = !this.isLogoutDialogOpen
-    console.log( this.isLogoutDialogOpen)
   }
 }

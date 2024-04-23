@@ -42,7 +42,6 @@ export class SignUpComponent{
   }
 
   signUp(){
-    console.log(this.newUser)
     this.successMessage = ''
     this.errorMessage = ''
     if(this.formIsCompleted){
@@ -53,14 +52,12 @@ export class SignUpComponent{
           },
           error: (error) => {
             this.errorMessage = error.error.detail
-            console.log(error)
           }
         })
     }
   }
 
   resolved(captchaResponse: string | null) {
-    console.log(captchaResponse ? captchaResponse : '')
     this.verifyForm('recaptcha', captchaResponse)
     this.newUser.recaptcha = captchaResponse ? captchaResponse : ""
   }

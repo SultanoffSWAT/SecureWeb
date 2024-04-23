@@ -1,4 +1,7 @@
-<div class="admin">
+
+<div *ngIf="!isAdmin" class="page-not-found"> Page not found </div>
+
+<div class="admin" *ngIf="isAdmin">
   <div class="list">
     <div class="links">
       <a routerLink="/admin/users">Users</a>
@@ -7,10 +10,9 @@
     <router-outlet></router-outlet>
   </div>
 
-
   <div class="personal">
-    <p class="profile-name">Hi, Admin!</p>
-    <p>admin@gmail.com</p>
+    <p class="profile-name">Hi, {{user.name}}!</p>
+    <p>{{user.email}}</p>
 
     <button class="white-button">Reset password</button>
     <button class="white-button" (click)="toggleLogoutDialog()">Logout</button>

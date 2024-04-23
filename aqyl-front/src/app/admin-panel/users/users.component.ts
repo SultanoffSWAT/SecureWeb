@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {UserProfile} from "../../../models/user";
+import {AdminPanelUser, UserProfile} from "../../../models/user";
 import {Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 
@@ -10,16 +10,25 @@ import {UserService} from "../../../services/user.service";
 })
 export class UsersComponent implements OnInit{
 
-  users : UserProfile[] = []
+  users : AdminPanelUser[] = []
   isDeleteUserDialogOpen : boolean = false
-  deletingUser : UserProfile | undefined
+  deletingUser : AdminPanelUser | undefined
 
   constructor(private router: Router, private userService: UserService) {}
   deleteUser(){
-    // delete this.deletingUser
+    if(this.deletingUser){
+      this.userService.removeUser(this.deletingUser.id).subscribe({
+        next: value => {
+          this.deletingUser = undefined
+          this.getAllUsers()
+        },
+        error: err => this.deletingUser = undefined,
+      })
+    }
+    this.getAllUsers()
   }
 
-  toggleDeleteUserDialog(user? : UserProfile){
+  toggleDeleteUserDialog(user? : AdminPanelUser){
     if(user){
       this.deletingUser = user
     }

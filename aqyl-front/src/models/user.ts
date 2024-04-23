@@ -36,3 +36,24 @@ export class UserProfile{
     }
   }
 }
+
+export class AdminPanelUser{
+  id: number
+  name: String;
+  email: String;
+  role: String
+
+  constructor(id? : number, name?: String, email?: String, role?: String ) {
+    this.id = 0
+    this.name = "";
+    this.email = ""
+    this.role = ""
+
+    if(id && name && email && role) {
+      this.id = id
+      this.name = name;
+      this.email = email
+      this.role = role
+    }
+  }
+}
